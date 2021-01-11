@@ -2,27 +2,28 @@
 
 declare(strict_types=1);
 
+use Nette\Application\Attributes\Persistent;
 use Nette\Application\UI;
+use Nette\Utils\Arrays;
 
 /**
  * The Fifteen game control
  */
 class FifteenControl extends UI\Control
 {
-	/** @var int */
-	public $width = 4;
+	public int $width = 4;
 
 	/** @var callable[]  function (FifteenControl $sender): void */
-	public $onAfterClick;
+	public array $onAfterClick = [];
 
 	/** @var callable[]  function (FifteenControl $sender, int $round): void */
-	public $onGameOver;
+	public array $onGameOver = [];
 
-	/** @persistent array */
-	public $order = [];
+	#[Persistent]
+	public array $order = [];
 
-	/** @persistent int */
-	public $round = 0;
+	#[Persistent]
+	public int $round = 0;
 
 
 	public function __construct()
@@ -39,10 +40,10 @@ class FifteenControl extends UI\Control
 
 		$this->move($x, $y);
 		$this->round++;
-		$this->onAfterClick($this);
+		Arrays::invoke($this->onAfterClick, $this);
 
 		if ($this->order == range(0, $this->width * $this->width - 1)) {
-			$this->onGameOver($this, $this->round);
+			Arrays::invoke($this->onGameOver, $this, $this->round);
 		}
 	}
 

@@ -17,13 +17,13 @@ class DefaultPresenter extends Nette\Application\UI\Presenter
 	protected function createComponentFifteen(): FifteenControl
 	{
 		$fifteen = new FifteenControl;
-		$fifteen->onGameOver[] = [$this, 'gameOver'];
+		$fifteen->onGameOver[] = $this->gameOver(...);
 		$fifteen->redrawControl();
 		return $fifteen;
 	}
 
 
-	public function gameOver($sender, int $round): void
+	private function gameOver($sender, int $round): void
 	{
 		$this->template->flash = 'Congratulations!';
 		$this->redrawControl('flash');
