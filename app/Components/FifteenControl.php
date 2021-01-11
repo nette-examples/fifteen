@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Nette\Application\UI;
+use Nette\Utils\Arrays;
 
 /**
  * The Fifteen game control
@@ -13,10 +14,10 @@ class FifteenControl extends UI\Control
 	public $width = 4;
 
 	/** @var callable[]  function (FifteenControl $sender): void */
-	public $onAfterClick;
+	public $onAfterClick = [];
 
 	/** @var callable[]  function (FifteenControl $sender, int $round): void */
-	public $onGameOver;
+	public $onGameOver = [];
 
 	/** @persistent array */
 	public $order = [];
@@ -39,10 +40,10 @@ class FifteenControl extends UI\Control
 
 		$this->move($x, $y);
 		$this->round++;
-		$this->onAfterClick($this);
+		Arrays::invoke($this->onAfterClick, $this);
 
 		if ($this->order == range(0, $this->width * $this->width - 1)) {
-			$this->onGameOver($this, $this->round);
+			Arrays::invoke($this->onGameOver, $this, $this->round);
 		}
 	}
 
