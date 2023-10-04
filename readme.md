@@ -1,31 +1,45 @@
-Game Fifteen (Nette Framework example)
---------------------------------------
+Game Fifteen (Nette Framework Example)
+======================================
 
-A simple example showing components as the reusable stand-alone units existing
-inside the presenter. We can put two components alongside and each of them
-will be working stand-alone. The communication between components and
-presenter is arranged by events (event-driven model).
+This is a simple example demonstrating the use of components as reusable, stand-alone units within a presenter in the Nette Framework. You can place multiple components alongside each other, and each will function independently. Communication between components and the presenter is facilitated through an event-driven model.
 
 
 What is [Nette Framework](https://nette.org)?
 --------------------------------------------
 
-Nette Framework is a popular tool for PHP web development. It is designed to be
-the most usable and friendliest as possible. It focuses on security and
-performance and is definitely one of the safest PHP frameworks.
-
-Nette Framework speaks your language and helps you to easily build better websites.
+Nette Framework is a prominent tool for PHP web development, designed with usability and friendliness in mind. It prioritizes security and performance, standing out as one of the safest PHP frameworks available. Nette Framework is intuitive, helping you efficiently build improved websites.
 
 
 Installing
 ----------
 
-The best way to install Nette Framework is to download latest package
-from https://nette.org/download or using [Composer](https://doc.nette.org/composer):
+Follow these steps to set up the example:
 
-	curl -s http://getcomposer.org/installer | php
-	php composer.phar update
+1. Clone the repository:
+```shell
+git clone https://github.com/nette-examples/fifteen
+```
 
-Then navigate your browser to the `www` directory. PHP 5.4 allows
-you run `php -S localhost:8888 -t www` to start the webserver and
-then visit `http://localhost:8888` in your browser.
+2. Navigate to the project directory:
+```shell
+cd fifteen
+```
+
+3. Install the required dependencies:
+```shell
+composer install
+```
+
+4. Make directories `temp/` and `log/` writable.
+
+
+Running the Demo
+----------------
+
+Then navigate your browser to the `www` directory.
+
+
+Requirements
+------------
+
+Ensure you have PHP version 8.1 or above installed to run the demo.
