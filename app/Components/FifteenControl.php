@@ -7,18 +7,20 @@ use Nette\Application\UI;
 use Nette\Utils\Arrays;
 
 /**
- * The Fifteen game control
+ * The control responsible for the Fifteen game logic and presentation.
  */
 class FifteenControl extends UI\Control
 {
+	// Game's grid dimensions
 	public int $width = 4;
 
-	/** @var callable[]  function (FifteenControl $sender): void */
+	// Event triggered after a valid game move
 	public array $onAfterClick = [];
 
-	/** @var callable[]  function (FifteenControl $sender, int $round): void */
+	// Event triggered when the game is completed
 	public array $onGameOver = [];
 
+	// Persistent game state: order of tiles and current round
 	#[Persistent]
 	public array $order = [];
 
@@ -32,22 +34,27 @@ class FifteenControl extends UI\Control
 	}
 
 
+	// Handle tile click events in the game
 	public function handleClick(int $x, int $y): void
 	{
+		// Ensure the move is valid
 		if (!$this->isClickable($x, $y)) {
 			throw new UI\BadSignalException('Action not allowed.');
 		}
 
+		// Execute the move and update the game state
 		$this->move($x, $y);
 		$this->round++;
 		Arrays::invoke($this->onAfterClick, $this);
 
+		// Check for game completion
 		if ($this->order == range(0, $this->width * $this->width - 1)) {
 			Arrays::invoke($this->onGameOver, $this, $this->round);
 		}
 	}
 
 
+	// Randomly shuffle the game tiles
 	public function handleShuffle(): void
 	{
 		$i = 100;
@@ -69,6 +76,7 @@ class FifteenControl extends UI\Control
 	}
 
 
+	// Check if a tile can be moved to the empty slot
 	public function isClickable(int $x, int $y, string &$rel = null): bool
 	{
 		$rel = null;
@@ -96,6 +104,7 @@ class FifteenControl extends UI\Control
 	}
 
 
+	// Move the clicked tile to the empty slot
 	private function move(int $x, int $y): void
 	{
 		$pos = $x + $y * $this->width;
@@ -105,12 +114,14 @@ class FifteenControl extends UI\Control
 	}
 
 
+	// Find the position of the empty slot in the game grid
 	private function searchEmpty(): int
 	{
 		return array_search(0, $this->order, true);
 	}
 
 
+	// Render the game's current state using its template
 	public function render(): void
 	{
 		$template = $this->template;
@@ -120,9 +131,7 @@ class FifteenControl extends UI\Control
 	}
 
 
-	/**
-	 * Loads params.
-	 */
+	// Load saved game state from request
 	public function loadState(array $params): void
 	{
 		if (isset($params['order'])) {
@@ -140,9 +149,7 @@ class FifteenControl extends UI\Control
 	}
 
 
-	/**
-	 * Save params.
-	 */
+	// Save the current game state to HTTP URL
 	public function saveState(array &$params): void
 	{
 		parent::saveState($params);

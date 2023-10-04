@@ -3,8 +3,10 @@
 declare(strict_types=1);
 
 
+// The primary presenter for the Fifteen game
 class DefaultPresenter extends Nette\Application\UI\Presenter
 {
+	// Refreshes the 'round' part of the game view
 	public function renderDefault(): void
 	{
 		$this->redrawControl('round');
@@ -12,7 +14,8 @@ class DefaultPresenter extends Nette\Application\UI\Presenter
 
 
 	/**
-	 * Fifteen game control factory.
+	 * Factory method to create the Fifteen game component.
+	 * This component is responsible for the game's logic and rendering.
 	 */
 	protected function createComponentFifteen(): FifteenControl
 	{
@@ -23,6 +26,7 @@ class DefaultPresenter extends Nette\Application\UI\Presenter
 	}
 
 
+	// Event handler for the game's end state
 	private function gameOver($sender, int $round): void
 	{
 		$this->template->flash = 'Congratulations!';

@@ -1,21 +1,31 @@
-{**
- * The Fifteen game control template
+ {**
+ * Fifteen Game Control Template
  *
- * @param  int       $width
- * @param  array     $order
- * @param  Control   $control
+ * This template is responsible for rendering the game board.
+ * It dynamically generates the game grid based on the game's state.
+ *
+ * @param int    $width    The dimension of the game grid (e.g., 4 for a 4x4 grid)
+ * @param array  $order    The current order of game tiles
+ * @param Control $control The game control object
  *}
 
 {snippet}
 
 <table class="fifteen">
-<tr n:for="$y = $width - 1; $y >= 0; $y--">
-	<td n:for="$x = $width - 1; $x >= 0; $x--">
-		<a n:href="Click, $x, $y" class="ajax" rel="{$rel}" n:tag-if="$clickable = $control->isClickable($x, $y, $rel)">
-			<img src="{$basePath}/images/game{$order[$x + $y * $width]}.jpg" width="100" height="100" alt="{$order[$x + $y * $width]+1}">
-		</a>
-	</td>
-</tr>
+	{* Generate rows for the game grid *}
+	<tr n:for="$y = $width - 1; $y >= 0; $y--">
+
+		{* Generate columns for the game grid *}
+		<td n:for="$x = $width - 1; $x >= 0; $x--">
+
+			{* Display a clickable tile if it can be moved *}
+			<a n:href="Click, $x, $y" class="ajax" rel="{$rel}" n:tag-if="$clickable = $control->isClickable($x, $y, $rel)">
+
+				{* Display the image for the current tile *}
+				<img src="{$basePath}/images/game{$order[$x + $y * $width]}.jpg" width="100" height="100" alt="{$order[$x + $y * $width]+1}">
+			</a>
+		</td>
+	</tr>
 </table>
 
 {/snippet}
