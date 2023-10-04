@@ -27,6 +27,9 @@ img {
 	border-right: 1px solid white;
 	border-bottom: 1px solid white;
 	position: relative;
+	transition: left .8s ease-in-out, top .8s ease-in-out;
+	left: 0;
+	top: 0;
 }
 
 .fifteen {
