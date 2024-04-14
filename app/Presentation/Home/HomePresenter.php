@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 
 // The primary presenter for the Fifteen game
-class DefaultPresenter extends Nette\Application\UI\Presenter
+class HomePresenter extends Nette\Application\UI\Presenter
 {
 	// Refreshes the 'round' part of the game view
 	public function renderDefault(): void

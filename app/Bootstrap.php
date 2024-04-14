@@ -36,7 +36,7 @@ class Bootstrap
 			->register();
 
 		// Setup router
-		$configurator->addServices(['router' => new SimpleRouter('Default:default')]);
+		$configurator->addServices(['router' => new SimpleRouter('Home:default')]);
 
 		return $configurator;
 	}
