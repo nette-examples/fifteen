@@ -77,7 +77,7 @@ class FifteenControl extends UI\Control
 
 
 	// Check if a tile can be moved to the empty slot
-	public function isClickable(int $x, int $y, string &$rel = null): bool
+	public function isClickable(int $x, int $y, ?string &$rel = null): bool
 	{
 		$rel = null;
 		$pos = $x + $y * $this->width;
